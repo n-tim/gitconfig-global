@@ -1,0 +1,22 @@
+[push]
+	default = current
+[pull]
+	default = current
+
+[includeIf "gitdir:~/Develop/Sources/work/**"]
+  path = ~/Develop/Sources/work/.gitconfig
+
+[includeIf "gitdir:~/Develop/Sources/personal/**"]
+  path = ~/Develop/Sources/personal/.gitconfig
+
+[core]
+	editor = nano
+
+[alias]
+  co = checkout
+  ci = commit
+  st = status
+  br = branch
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  type = cat-file -t
+  dump = cat-file -p
