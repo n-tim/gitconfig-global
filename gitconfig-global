@@ -1,22 +1,40 @@
-[push]
-	default = current
-[pull]
-	default = current
+#requires mc
 
-[includeIf "gitdir:~/Develop/Sources/work/**"]
+[push]
+  default = current
+[pull]
+  default = current
+
+[includeIf "gitdir/i:~/Develop/Sources/work/"]
   path = ~/Develop/Sources/work/.gitconfig
 
-[includeIf "gitdir:~/Develop/Sources/personal/**"]
+[includeIf "gitdir/i:~/Develop/Sources/personal/"]
   path = ~/Develop/Sources/personal/.gitconfig
 
 [core]
-	editor = nano
+  editor = mcedit
+
+[diff]
+  tool = mcdiff
+[difftool "mcdiff"]
+  cmd = mcdiff "$LOCAL" "$REMOTE"
+[difftool]
+  prompt = false
 
 [alias]
   co = checkout
   ci = commit
   st = status
   br = branch
-  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  hist = !"git lg1"
   type = cat-file -t
   dump = cat-file -p
+  lg1 = !"git lg1-specific --all"
+  lg2 = !"git lg2-specific --all"
+  lg3 = !"git lg3-specific --all"
+  lol = !"git show --all --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'"
+
+  lg1-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
+  lg2-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+  lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
+
